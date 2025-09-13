@@ -1,6 +1,6 @@
 // Sydney Music RM Diagram
 digraph {
-	fontsize=10 rankdir=TB splines=ortho
+	fontsize=10 nodesep=1 rankdir=TB ranksep=1 splines=ortho
 	Album [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
@@ -12,39 +12,39 @@ digraph {
 	Artist [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Artist</B></TD><TD PORT="artist_id"><U>artist_id</U></TD><TD PORT="full_name">full_name</TD><TD PORT="email">email</TD><TD PORT="login_name">login_name (UQ)</TD><TD PORT="password">password</TD><TD PORT="mobile_number">mobile_number</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Artist</B></TD><TD PORT="artist_id"><U>artist_id</U></TD><TD PORT="full_name">full_name</TD><TD PORT="email">email</TD></TR></TABLE>> shape=plaintext]
 	Customer [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Customer</B></TD><TD PORT="customer_id"><U>customer_id</U></TD><TD PORT="full_name">full_name</TD><TD PORT="email">email</TD><TD PORT="login_name">login_name (UQ)</TD><TD PORT="password">password</TD><TD PORT="mobile_number">mobile_number</TD><TD PORT="age">age [non-negative]</TD><TD PORT="birth_date">birth_date</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Customer</B></TD><TD PORT="customer_id"><U>customer_id</U></TD><TD PORT="full_name">full_name</TD></TR></TABLE>> shape=plaintext]
 	Staff [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Staff</B></TD><TD PORT="staff_id"><U>staff_id</U></TD><TD PORT="full_name">full_name</TD><TD PORT="email">email</TD><TD PORT="login_name">login_name (UQ)</TD><TD PORT="password">password</TD><TD PORT="mobile_number">mobile_number</TD><TD PORT="address">address</TD><TD PORT="compensation">compensation [0-200000]</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Staff</B></TD><TD PORT="staff_id"><U>staff_id</U></TD><TD PORT="full_name">full_name</TD></TR></TABLE>> shape=plaintext]
 	Review [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Review</B></TD><TD PORT="review_id"><U>review_id</U></TD><TD PORT="customer_id"><FONT COLOR="orange"><I>customer_id (FK)</I></FONT></TD><TD PORT="track_id"><FONT COLOR="orange"><I>track_id (FK)</I></FONT></TD><TD PORT="rating">rating [1-5]</TD><TD PORT="comment">comment</TD><TD PORT="created_date">created_date</TD><TD PORT="created_time">created_time</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Review</B></TD><TD PORT="review_id"><U>review_id</U></TD><TD PORT="customer_id"><FONT COLOR="orange"><I>customer_id (FK)</I></FONT></TD><TD PORT="track_id"><FONT COLOR="orange"><I>track_id (FK)</I></FONT></TD></TR></TABLE>> shape=plaintext]
 	Playlist [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Playlist</B></TD><TD PORT="playlist_id"><U>playlist_id</U></TD><TD PORT="customer_id"><FONT COLOR="orange"><I>customer_id (FK)</I></FONT></TD><TD PORT="name">name (UQ per customer)</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightblue" ALIGN="CENTER"><B>Playlist</B></TD><TD PORT="playlist_id"><U>playlist_id</U></TD><TD PORT="customer_id"><FONT COLOR="orange"><I>customer_id (FK)</I></FONT></TD></TR></TABLE>> shape=plaintext]
 	Contributed [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>Contributed</B></TD><TD PORT="artist_id"><U>artist_id</U></TD><TD PORT="track_id"><U>track_id</U></TD><TD PORT="role">role</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>Contributed</B></TD><TD PORT="artist_id"><U>artist_id</U></TD><TD PORT="track_id"><U>track_id</U></TD></TR></TABLE>> shape=plaintext]
 	Remove [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>Remove</B></TD><TD PORT="staff_id"><U>staff_id</U></TD><TD PORT="review_id"><U>review_id</U></TD><TD PORT="removal_reason">removal_reason</TD><TD PORT="removal_date">removal_date</TD><TD PORT="removal_time">removal_time</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>Remove</B></TD><TD PORT="staff_id"><U>staff_id</U></TD><TD PORT="review_id"><U>review_id</U></TD></TR></TABLE>> shape=plaintext]
 	PlaylistItem [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>PlaylistItem</B></TD><TD PORT="playlist_id"><U>playlist_id</U></TD><TD PORT="track_id"><U>track_id</U></TD><TD PORT="position">position (UQ per playlist)</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>PlaylistItem</B></TD><TD PORT="playlist_id"><U>playlist_id</U></TD><TD PORT="track_id"><U>track_id</U></TD></TR></TABLE>> shape=plaintext]
 	Listens_to [label=<
     <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
         <TR>
-            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>Listens_to</B></TD><TD PORT="customer_id"><U>customer_id</U></TD><TD PORT="track_id"><U>track_id</U></TD><TD PORT="times">times</TD></TR></TABLE>> shape=plaintext]
+            <TD BGCOLOR="lightsalmon" ALIGN="CENTER"><B>Listens_to</B></TD><TD PORT="customer_id"><U>customer_id</U></TD><TD PORT="track_id"><U>track_id</U></TD></TR></TABLE>> shape=plaintext]
 	Track:album_id:s -> Album:album_id:n
 	Contributed:artist_id:s -> Artist:artist_id:n
 	Contributed:track_id:s -> Track:track_id:n

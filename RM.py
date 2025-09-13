@@ -1,7 +1,9 @@
 from graphviz import Digraph
 
 dot = Digraph(comment="Sydney Music RM Diagram", format="png")
-dot.attr(rankdir="TB", fontsize="10", splines="ortho")  # 折线连接
+
+# 全局参数：正交折线 + 增加节点间距，避免交叉/穿越
+dot.attr(rankdir="TB", fontsize="10", splines="ortho", nodesep="1", ranksep="1")
 
 def make_attr_cell(attr, port, is_pk=False, is_fk=False):
     """生成带端口的属性单元格 HTML"""
@@ -22,75 +24,47 @@ def add_table(name, attrs, color):
     label += "</TR></TABLE>>"
     dot.node(name, label=label, shape="plaintext")
 
-# 实体表
-add_table("Album", [("album_id", "album_id", True, False), ("release_date", "release_date", False, False)], "lightblue")
+# === 实体表 ===
+add_table("Album", [("album_id", "album_id", True, False),
+                    ("release_date", "release_date", False, False)], "lightblue")
 
-add_table("Track", [
-    ("track_id", "track_id", True, False), ("title", "title", False, False),
-    ("duration", "duration", False, False), ("genre", "genre", False, False),
-    ("album_id", "album_id", False, True)
-], "lightblue")
+add_table("Track", [("track_id", "track_id", True, False),
+                    ("title", "title", False, False),
+                    ("duration", "duration", False, False),
+                    ("genre", "genre", False, False),
+                    ("album_id", "album_id", False, True)], "lightblue")
 
-add_table("Artist", [
-    ("artist_id", "artist_id", True, False), ("full_name", "full_name", False, False),
-    ("email", "email", False, False), ("login_name (UQ)", "login_name", False, False),
-    ("password", "password", False, False), ("mobile_number", "mobile_number", False, False)
-], "lightblue")
+add_table("Artist", [("artist_id", "artist_id", True, False),
+                     ("full_name", "full_name", False, False),
+                     ("email", "email", False, False)], "lightblue")
 
-add_table("Customer", [
-    ("customer_id", "customer_id", True, False), ("full_name", "full_name", False, False),
-    ("email", "email", False, False), ("login_name (UQ)", "login_name", False, False),
-    ("password", "password", False, False), ("mobile_number", "mobile_number", False, False),
-    ("age [non-negative]", "age", False, False), ("birth_date", "birth_date", False, False)
-], "lightblue")
+add_table("Customer", [("customer_id", "customer_id", True, False),
+                       ("full_name", "full_name", False, False)], "lightblue")
 
-add_table("Staff", [
-    ("staff_id", "staff_id", True, False), ("full_name", "full_name", False, False),
-    ("email", "email", False, False), ("login_name (UQ)", "login_name", False, False),
-    ("password", "password", False, False), ("mobile_number", "mobile_number", False, False),
-    ("address", "address", False, False), ("compensation [0-200000]", "compensation", False, False)
-], "lightblue")
+add_table("Staff", [("staff_id", "staff_id", True, False),
+                    ("full_name", "full_name", False, False)], "lightblue")
 
-add_table("Review", [
-    ("review_id", "review_id", True, False), ("customer_id", "customer_id", False, True),
-    ("track_id", "track_id", False, True), ("rating [1-5]", "rating", False, False),
-    ("comment", "comment", False, False), ("created_date", "created_date", False, False),
-    ("created_time", "created_time", False, False)
-], "lightblue")
+add_table("Review", [("review_id", "review_id", True, False),
+                     ("customer_id", "customer_id", False, True),
+                     ("track_id", "track_id", False, True)], "lightblue")
 
-add_table("Playlist", [
-    ("playlist_id", "playlist_id", True, False), ("customer_id", "customer_id", False, True),
-    ("name (UQ per customer)", "name", False, False)
-], "lightblue")
+add_table("Playlist", [("playlist_id", "playlist_id", True, False),
+                       ("customer_id", "customer_id", False, True)], "lightblue")
 
-# 关系表
-add_table("Contributed", [
-    ("artist_id", "artist_id", True, True),
-    ("track_id", "track_id", True, True),
-    ("role", "role", False, False)
-], "lightsalmon")
+# === 关系表 ===
+add_table("Contributed", [("artist_id", "artist_id", True, True),
+                          ("track_id", "track_id", True, True)], "lightsalmon")
 
-add_table("Remove", [
-    ("staff_id", "staff_id", True, True),
-    ("review_id", "review_id", True, True),
-    ("removal_reason", "removal_reason", False, False),
-    ("removal_date", "removal_date", False, False),
-    ("removal_time", "removal_time", False, False)
-], "lightsalmon")
+add_table("Remove", [("staff_id", "staff_id", True, True),
+                     ("review_id", "review_id", True, True)], "lightsalmon")
 
-add_table("PlaylistItem", [
-    ("playlist_id", "playlist_id", True, True),
-    ("track_id", "track_id", True, True),
-    ("position (UQ per playlist)", "position", False, False)
-], "lightsalmon")
+add_table("PlaylistItem", [("playlist_id", "playlist_id", True, True),
+                           ("track_id", "track_id", True, True)], "lightsalmon")
 
-add_table("Listens_to", [
-    ("customer_id", "customer_id", True, True),
-    ("track_id", "track_id", True, True),
-    ("times", "times", False, False)
-], "lightsalmon")
+add_table("Listens_to", [("customer_id", "customer_id", True, True),
+                         ("track_id", "track_id", True, True)], "lightsalmon")
 
-# 外键精确箭头 (外键下边 → 主键上边)
+# === 外键精确箭头（FK 下边 → PK 上边） ===
 dot.edge("Track:album_id:s", "Album:album_id:n")
 dot.edge("Contributed:artist_id:s", "Artist:artist_id:n")
 dot.edge("Contributed:track_id:s", "Track:track_id:n")
